@@ -1,0 +1,140 @@
+---
+import Layout from '../components/Layout.astro';
+import { config } from '../config';
+import BannerPlaceholder from '../components/BannerPlaceholder.astro'; // 1. Importamos el placeholder
+
+const base = import.meta.env.BASE_URL;
+
+// Categorías Ficticias y Estáticas
+const categoriasFicticias = [
+  "Corrupción Municipal",
+  "Abuso Empresarial",
+  "Negligencia Estatal",
+  "Daño Medioambiental",
+  "Fraude",
+  "Problemas Ciudadanos"
+];
+
+// 10 Denuncias de Ejemplo
+const denuncias = [
+    { id: 1, titulo: "Contrataciones irregulares en Municipio de Punta Arenas", categoria: "Corrupción Municipal", fecha: "14 de Octubre, 2025", texto: "Se adjuntan documentos que prueban la contratación de personal sin concurso público, asignados a familiares directos de la jefatura...", pruebas: [{ tipo: 'imagen', url: 'https://via.placeholder.com/800x400.png?text=Organigrama+Filtrado' }, { tipo: 'documento', url: '#', nombre: 'Decreto_1234.pdf' }] },
+    { id: 2, titulo: "Vertedero ilegal de salmonera en canal Beagle", categoria: "Daño Medioambiental", fecha: "12 de Octubre, 2025", texto: "Empresa salmonera ha estado vertiendo desechos sin tratar directamente en el canal. El video adjunto, grabado con un dron, muestra la mancha...", pruebas: [{ tipo: 'video', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' }, { tipo: 'imagen', url: 'https://via.placeholder.com/800x400.png?text=Foto+Satélite' }] },
+    { id: 3, titulo: "Abuso laboral y no pago de horas extra en constructora local", categoria: "Abuso Empresarial", fecha: "11 de Octubre, 2025", texto: "Trabajadores denuncian jornadas de 12 horas sin pago de horas extras y sin las medidas de seguridad adecuadas. Se adjuntan audios de supervisores.", pruebas: [{ tipo: 'documento', url: '#', nombre: 'Testimonios.pdf' }, { tipo: 'audio', url: '#', nombre: 'Grabacion.mp3' }] },
+    { id: 4, titulo: "Luminarias públicas pagadas pero nunca instaladas", categoria: "Negligencia Estatal", fecha: "10 de Octubre, 2025", texto: "El proyecto de renovación de luminarias para el sector sur fue marcado como 'completado', pero las calles siguen a oscuras. Las fotos lo demuestran.", pruebas: [{ tipo: 'imagen', url: 'https://via.placeholder.com/800x400.png?text=Calle+de+Noche' }, { tipo: 'documento', url: '#', nombre: 'Licitacion.pdf' }] },
+    { id: 5, titulo: "Cobros excesivos y unilaterales en cuentas de gas", categoria: "Problemas Ciudadanos", fecha: "9 de Octubre, 2025", texto: "Cientos de vecinos reportan un alza de más del 200% en sus cuentas de gas, sin previo aviso ni justificación por parte de la empresa distribuidora.", pruebas: [{ tipo: 'imagen', url: 'https://via.placeholder.com/400x600.png?text=Boleta+Julio' }, { tipo: 'imagen', url: 'https://via.placeholder.com/400x600.png?text=Boleta+Agosto' }] },
+    { id: 6, titulo: "Empresa pesquera opera con permisos vencidos", categoria: "Fraude", fecha: "8 de Octubre, 2025", texto: "La embarcación 'Rey del Mar V' ha estado operando con su permiso de pesca vencido desde enero. Se adjunta copia del registro marítimo.", pruebas: [{ tipo: 'documento', url: '#', nombre: 'Registro_Maritimo.pdf' }] },
+    { id: 7, titulo: "Director de servicio público utiliza vehículo fiscal para fines personales", categoria: "Corrupción Municipal", fecha: "7 de Octubre, 2025", texto: "Fotografías tomadas durante tres fines de semana consecutivos muestran al director del servicio X utilizando la camioneta fiscal para viajes familiares.", pruebas: [{ tipo: 'imagen', url: 'https://via.placeholder.com/800x400.png?text=Camioneta+en+Supermercado' }] },
+    { id: 8, titulo: "Postulación a subsidios habitacionales rechazada sin justificación", categoria: "Problemas Ciudadanos", fecha: "6 de Octubre, 2025", texto: "Más de 50 familias que cumplían todos los requisitos fueron rechazadas del proceso sin recibir una explicación formal. Se sospecha de manipulación.", pruebas: [{ tipo: 'documento', url: '#', nombre: 'Listado_Rechazados.xlsx' }] },
+    { id: 9, titulo: "Tala ilegal de bosque nativo en reserva provincial", categoria: "Daño Medioambiental", fecha: "5 de Octubre, 2025", texto: "Video muestra maquinaria pesada talando árboles de lenga en una zona protegida, presuntamente para un proyecto inmobiliario no autorizado.", pruebas: [{ tipo: 'video', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' }] },
+    { id: 10, titulo: "Adjudicación de contrato de aseo a empresa sin experiencia", categoria: "Fraude", fecha: "4 de Octubre, 2025", texto: "El millonario contrato fue adjudicado a una empresa creada hace 2 meses, cuyo representante legal es sobrino de un concejal.", pruebas: [{ tipo: 'documento', url: '#', nombre: 'Acta_Adjudicacion.pdf' }] }
+];
+---
+
+<Layout 
+  title="Denuncia Ciudadana | Magallanes Oculto" 
+  description="Archivo público de denuncias ciudadanas de la Región de Magallanes." 
+  showSidebar={false}
+>
+  <div class="denuncia-page">
+    <header class="page-header">
+      <h1 class="page-title">Denuncia Ciudadana</h1>
+      <p class="page-description">
+        Este es un archivo público de denuncias. Navega por categoría o revisa el feed con los últimos casos enviados por ciudadanos. Tu voz, respaldada por evidencia, es fundamental.
+      </p>
+      <hr class="page-rule" />
+    </header>
+
+    {/* 2. BANNER SUPERIOR AGREGADO */}
+    <BannerPlaceholder height="90px" />
+
+    <section class="categories-section">
+      <h2 class="section-title">Filtrar por Categoría</h2>
+      <div class="categories-grid">
+        {categoriasFicticias.map((category: string) => (
+          <div class="category-card">
+            <a href="#" class="category-link">
+              <h3 class="category-title">{category}</h3>
+            </a>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* 3. BANNER INTERMEDIO AGREGADO */}
+    <BannerPlaceholder height="90px" />
+
+    <section class="feed-section">
+      <h2 class="section-title">Últimas Denuncias</h2>
+      <div class="feed-container">
+        {denuncias.map(denuncia => (
+          <article class="denuncia-card">
+            <header class="denuncia-header">
+              <div class="denuncia-meta">
+                <span class="denuncia-categoria">{denuncia.categoria}</span>
+                <time class="denuncia-fecha">{denuncia.fecha}</time>
+              </div>
+              <h4 class="denuncia-titulo">{denuncia.titulo}</h4>
+            </header>
+            <div class="denuncia-body">
+              <p>{denuncia.texto}</p>
+            </div>
+            <footer class="denuncia-pruebas">
+              <h5 class="pruebas-titulo">Pruebas Adjuntas:</h5>
+              <div class="pruebas-grid">
+                {denuncia.pruebas.map(prueba => {
+                  if (prueba.tipo === 'imagen') {
+                    return <a href={prueba.url} target="_blank"><img src={prueba.url} alt="Prueba de imagen" class="prueba-item"/></a>;
+                  }
+                  if (prueba.tipo === 'video') {
+                    return <div class="video-container"><iframe src={prueba.url} frameborder="0" allowfullscreen class="prueba-item"></iframe></div>;
+                  }
+                  if (prueba.tipo === 'documento' || prueba.tipo === 'audio') {
+                    const icon = prueba.tipo === 'documento' ? '📄' : '🎵';
+                    return <a href={prueba.url} target="_blank" class="prueba-item-doc">{icon} <span>{prueba.nombre}</span></a>;
+                  }
+                })}
+              </div>
+            </footer>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    {/* 4. BANNER FINAL AGREGADO */}
+    <BannerPlaceholder height="250px" />
+
+  </div>
+</Layout>
+
+<style>
+/* Estilos originales sin cambios */
+  .page-header { text-align: center; margin-bottom: calc(var(--grid-unit) * 6); }
+  .page-title { font-family: var(--font-heading-primary); font-size: 3rem; font-weight: 700; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: calc(var(--grid-unit) * 2); }
+  .page-description { font-size: 1.125rem; line-height: 1.6; color: var(--color-text-secondary); max-width: 600px; margin: 0 auto calc(var(--grid-unit) * 3); }
+  .page-rule { height: 4px; background-color: var(--color-accent); border: none; width: 120px; margin: 0 auto; }
+  .section-title { font-family: var(--font-heading-secondary); font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: calc(var(--grid-unit) * 3); text-align: center; }
+  .categories-section { margin-bottom: calc(var(--grid-unit) * 8); }
+  .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: calc(var(--grid-unit) * 2); }
+  .category-card { background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: 6px; transition: all 0.2s ease; }
+  .category-card:hover { transform: translateY(-2px); border-color: var(--color-accent); }
+  .category-link { display: block; padding: calc(var(--grid-unit) * 1.5); text-decoration: none; color: inherit; text-align: center; }
+  .category-title { font-family: var(--font-heading-secondary); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-primary); transition: color 0.2s ease; }
+  .category-link:hover .category-title { color: var(--color-accent); }
+  .feed-container { display: flex; flex-direction: column; gap: calc(var(--grid-unit) * 4); max-width: 800px; margin: 0 auto; }
+  .denuncia-card { background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: 8px; padding: calc(var(--grid-unit) * 3); }
+  .denuncia-header { border-bottom: 1px solid var(--color-border); padding-bottom: calc(var(--grid-unit) * 2); margin-bottom: calc(var(--grid-unit) * 2); }
+  .denuncia-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: calc(var(--grid-unit) * 1.5); flex-wrap: wrap; gap: var(--grid-unit); }
+  .denuncia-categoria { background-color: var(--color-accent); color: white; padding: calc(var(--grid-unit) / 2) var(--grid-unit); font-size: 0.75rem; font-family: var(--font-mono); font-weight: 600; text-transform: uppercase; border-radius: 3px; }
+  .denuncia-fecha { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted); }
+  .denuncia-titulo { font-family: var(--font-heading-secondary); font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); }
+  .denuncia-body p { color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 0; }
+  .pruebas-titulo { font-family: var(--font-heading-secondary); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; color: var(--color-text-muted); margin-top: calc(var(--grid-unit) * 3); margin-bottom: calc(var(--grid-unit) * 1.5); }
+  .pruebas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: calc(var(--grid-unit) * 2); }
+  .prueba-item { width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--color-border); transition: transform 0.2s ease; }
+  .prueba-item:hover { transform: scale(1.05); }
+  .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 4px; }
+  .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  .prueba-item-doc { background-color: var(--color-background); border: 1px solid var(--color-border); border-radius: 4px; padding: var(--grid-unit); display: flex; align-items: center; gap: var(--grid-unit); text-decoration: none; color: var(--color-text-secondary); transition: all 0.2s ease; }
+  .prueba-item-doc:hover { border-color: var(--color-accent); color: var(--color-accent); }
+  .prueba-item-doc span { font-size: 0.8rem; font-family: var(--font-mono); word-break: break-all; }
+</style>

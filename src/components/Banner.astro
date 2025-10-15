@@ -1,0 +1,30 @@
+---
+// src/components/Banner.astro
+export interface Props {
+  href: string;
+  srcDesktop: string;
+  srcMobile: string;
+  alt: string;
+  class?: string; // Para añadir clases extra si es necesario
+}
+
+const { href, srcDesktop, srcMobile, alt, class: className } = Astro.props;
+---
+<div class=`ad-banner ${className}`>
+  <a href={href} target="_blank" rel="noopener sponsored">
+    <img src={srcDesktop} alt={alt} class="hidden md:block w-full h-auto" loading="lazy" />
+    <img src={srcMobile} alt={alt} class="block md:hidden w-full h-auto" loading="lazy" />
+  </a>
+</div>
+
+<style>
+  .ad-banner {
+    width: 100%;
+    margin: 2rem 0; /* Margen por defecto arriba y abajo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-surface); /* Un color de fondo sutil */
+    min-height: 90px;
+  }
+</style>

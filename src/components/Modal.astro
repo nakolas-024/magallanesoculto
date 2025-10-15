@@ -1,0 +1,62 @@
+---
+// src/components/Modal.astro
+export interface Props {
+  id: string; // ID único para este modal
+  href: string;
+  src: string;
+  alt: string;
+}
+const { id, href, src, alt } = Astro.props;
+---
+
+<div id={`modal-${id}`} class="modal-overlay fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50 hidden" aria-modal="true" role="dialog">
+  <div class="modal-content bg-white dark:bg-gray-800 p-4 rounded-lg shadow-xl relative max-w-md w-full m-4">
+    
+    <button id={`modal-close-${id}`} class="absolute top-2 right-2 text-gray-500 hover:text-gray-900 dark:hover:text-white" aria-label="Cerrar ventana">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <a href={href} target="_blank" rel="noopener sponsored" class="block">
+      <img src={src} alt={alt} class="w-full h-auto rounded" loading="lazy" />
+    </a>
+    <p class="text-xs text-center mt-2 text-gray-400">Publicidad</p>
+  </div>
+</div>
+
+<script define:vars={{ modalId: `modal-${id}`, closeId: `modal-close-${id}` }}>
+  // Este script se ejecuta en el lado del cliente para dar funcionalidad al modal
+  function initializeModal() {
+    const modal = document.getElementById(modalId);
+    const closeButton = document.getElementById(closeId);
+    
+    if (!modal || !closeButton) return;
+
+    const closeModal = () => modal.classList.add('hidden');
+    
+    closeButton.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+  }
+
+  // Se asegura de que el modal funcione con las transiciones de Swup
+  document.addEventListener('astro:page-load', initializeModal);
+  initializeModal(); // Ejecuta también en la carga inicial
+</script>
+
+<style>
+  .modal-overlay.hidden {
+    display: none;
+  }
+</style>

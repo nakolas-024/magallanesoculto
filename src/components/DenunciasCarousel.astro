@@ -1,0 +1,87 @@
+---
+// src/components/DenunciasCarousel.astro
+
+// 8 denuncias ficticias para el carrusel
+const denunciasFicticias = [
+  { id: 1, categoria: "Corrupción", titulo: "Sobreprecios en luminarias públicas del sector sur." },
+  { id: 2, categoria: "Medioambiente", titulo: "Vertedero ilegal de empresa constructora en Río de los Ciervos." },
+  { id: 3, categoria: "Abuso Laboral", titulo: "Trabajadores de pesquera denuncian no pago de horas extra." },
+  { id: 4, categoria: "Fraude", titulo: "Adjudicación de contrato de aseo a empresa sin experiencia." },
+  { id: 5, categoria: "Negligencia", titulo: "Postes de luz en mal estado en Población 18 de Septiembre." },
+  { id: 6, categoria: "Ciudadanos", titulo: "Calles sin pavimentar en sector alto de la ciudad por más de 5 años." },
+  { id: 7, categoria: "Corrupción", titulo: "Uso de vehículo fiscal para fines personales por director de servicio." },
+  { id: 8, categoria: "Medioambiente", titulo: "Contaminación por aguas servidas en la costanera." },
+];
+
+// Duplicamos las denuncias para un efecto de bucle infinito en la animación
+const denunciasDuplicadas = [...denunciasFicticias, ...denunciasFicticias];
+---
+
+<div class="carousel-container">
+  <div class="carousel-track">
+    {denunciasDuplicadas.map(denuncia => (
+      <div class="denuncia-card">
+        <span class="categoria">{denuncia.categoria}</span>
+        <p class="titulo">{denuncia.titulo}</p>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .carousel-container {
+    width: 100%;
+    overflow: hidden;
+    padding: 1rem 0;
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 2rem;
+  }
+
+  .carousel-track {
+    display: flex;
+    width: fit-content;
+    animation: scroll 40s linear infinite;
+  }
+
+  .denuncia-card {
+    flex-shrink: 0;
+    width: 300px;
+    margin: 0 1rem;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .denuncia-card .categoria {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+  }
+
+  .denuncia-card .titulo {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-text-primary);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

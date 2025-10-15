@@ -1,5 +1,6 @@
 ---
 import { config } from '../config';
+import perfilImage from '../images/perfil.jpg'; // IMPORTAMOS LA IMAGEN DE PERFIL
 
 const base = import.meta.env.BASE_URL;
 
@@ -11,51 +12,32 @@ const recentPosts = allPosts
   .slice(0, 5);
 
 const categories = [...new Set(allPosts.flatMap((post: any) => post.frontmatter.categories || []))];
+
+const authorName = "Scarleth Cárdenas";
+const authorBio = "Periodista de la Universidad de Chile con una destacada carrera en medios como TVN y Canal 13. Su trabajo se ha centrado en la investigación y conducción de noticieros, aportando una voz crítica y fiscalizadora.";
 ---
 
 <div class="sidebar-content">
-  <!-- Bio Section -->
   <section class="bio-section">
     <div class="avatar-container">
-      {config.author.avatar ? (
-        <img src={config.author.avatar} alt={config.author.name} class="avatar" />
-      ) : (
-        <div class="avatar-placeholder">
-          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Circular mask to contain the silhouette -->
-            <defs>
-              <clipPath id="circleClipSidebar">
-                <circle cx="40" cy="40" r="39" />
-              </clipPath>
-            </defs>
-            <g clip-path="url(#circleClipSidebar)">
-              <!-- Head (oval shape) -->
-              <ellipse cx="40" cy="28" rx="13" ry="15" fill="currentColor"/>
-              <!-- Neck -->
-              <path d="M33 40 Q33 44 35 46 L45 46 Q47 44 47 40 Z" fill="currentColor"/>
-              <!-- Shoulders -->
-              <path d="M35 46 Q28 48 22 54 Q16 60 14 70 L14 80 L66 80 L66 70 Q64 60 58 54 Q52 48 45 46 Z" fill="currentColor"/>
-            </g>
-          </svg>
-        </div>
-      )}
+      {/* --- IMAGEN DE PERFIL AÑADIDA DIRECTAMENTE --- */}
+      <img src={perfilImage.src} alt={authorName} class="avatar" />
     </div>
-    <h3 class="author-name">{config.author.name}</h3>
-    <p class="bio-text">{config.author.bio}</p>
+    <h3 class="author-name">{authorName}</h3>
+    <p class="bio-text">{authorBio}</p>
   </section>
 
-  <!-- Recent Posts Section -->
   {recentPosts.length > 0 && (
     <section class="recent-posts">
-      <h3 class="section-title">Recent Posts</h3>
+      <h3 class="section-title">Publicaciones Recientes</h3>
       <ul class="post-list">
         {recentPosts.map(post => (
           <li class="post-item">
-            <a href={`${base}/blog/${post.file.split('/').pop()?.replace(/\.(md|mdx)$/, '')}`} class="post-link">
+            <a href={`${base}blog/${post.file.split('/').pop()?.replace(/\.(md|mdx)$/, '')}`} class="post-link">
               {post.frontmatter.title}
             </a>
             <time class="post-date" datetime={post.frontmatter.date}>
-              {new Date(post.frontmatter.date).toLocaleDateString('en-US', {
+              {new Date(post.frontmatter.date).toLocaleDateString('es-ES', {
                 month: 'short',
                 day: 'numeric',
                 year: 'numeric'
@@ -67,14 +49,13 @@ const categories = [...new Set(allPosts.flatMap((post: any) => post.frontmatter.
     </section>
   )}
 
-  <!-- Categories Section -->
   {categories.length > 0 && (
     <section class="categories">
-      <h3 class="section-title">Categories</h3>
+      <h3 class="section-title">Categorías</h3>
       <ul class="category-list">
         {categories.map(category => (
           <li class="category-item">
-            <a href={`${base}/categories/${category.toLowerCase()}`} class="category-link">
+            <a href={`${base}categories/${category.toLowerCase()}`} class="category-link">
               {category}
             </a>
           </li>
@@ -85,6 +66,7 @@ const categories = [...new Set(allPosts.flatMap((post: any) => post.frontmatter.
 </div>
 
 <style>
+/* Estilos originales sin cambios */
   .sidebar-content {
     display: flex;
     flex-direction: column;
@@ -220,7 +202,6 @@ const categories = [...new Set(allPosts.flatMap((post: any) => post.frontmatter.
     text-decoration: none;
   }
 
-  /* Dark mode category link styles */
   :global([data-theme="dark"]) .category-link {
     background-color: var(--color-surface);
     color: var(--color-text-primary);

@@ -1,0 +1,126 @@
+---
+import Layout from '../components/Layout.astro';
+import { config } from '../config';
+---
+
+<Layout 
+  title="Actúa | Magallanes Oculto" 
+  description="Envía tu denuncia anónima, apoya nuestro trabajo o conviértete en sponsor. Tu participación es clave."
+  showSidebar={false}
+>
+  <div class="actua-page">
+    <header class="page-header">
+      <h1 class="page-title">Actúa</h1>
+      <p class="page-description">
+        Este es el centro de operaciones ciudadanas. Tu participación, ya sea enviando información, donando o patrocinando, es lo que mantiene vivo este espacio.
+      </p>
+      <hr class="page-rule" />
+    </header>
+
+    <section class="denuncia-form-section">
+      <h2>Envía una Denuncia Anónima</h2>
+      <p>Tu identidad será protegida. Toda la información es encriptada y revisada por nuestro equipo. Solo publicaremos casos que puedan ser respaldados por la evidencia que adjuntes.</p>
+      <form class="denuncia-form" onsubmit="event.preventDefault(); alert('Formulario enviado (simulación).');">
+        <div class="form-group">
+          <label for="titulo">Título de la denuncia</label>
+          <input type="text" id="titulo" name="titulo" placeholder="Ej: Mal uso de fondos en municipalidad X" required>
+        </div>
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" rows="6" placeholder="Describe los hechos, fechas, personas involucradas y cualquier detalle relevante." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="pruebas">Adjunte Pruebas (imágenes, videos, documentos)</label>
+          <input type="file" id="pruebas" name="pruebas" multiple>
+        </div>
+        <button type="submit" class="btn-submit">Enviar Denuncia de Forma Segura</button>
+      </form>
+    </section>
+
+    <section class="contacto-section">
+      <h2>Contáctanos</h2>
+      <p>Para consultas generales, entrevistas o si prefieres un contacto directo, escríbenos.</p>
+      <div class="contact-links">
+        <a href="mailto:correo123@123.cl" class="contact-link">
+          <span class="contact-label">Email</span>
+          correo123@123.cl
+        </a>
+      </div>
+    </section>
+
+    <section class="donacion-section">
+      <h2>Apoya el Periodismo Independiente</h2>
+      <p>Somos un medio sin fines de lucro y sin afiliaciones políticas. Tu donación nos permite seguir investigando y mantener este sitio sin muros de pago. Tu aporte se puede destinar a:</p>
+      <ul>
+        <li>Mejorar la seguridad y tecnología del sitio.</li>
+        <li>Financiar investigaciones de largo aliento (trabajo de campo, solicitudes por transparencia, etc.).</li>
+        <li>Costos operativos (servidores, licencias, etc.).</li>
+      </ul>
+      <a href="#" class="btn-donar">Donar Ahora</a>
+    </section>
+
+    <section class="sponsor-section">
+      <h2>Crezcamos Juntos</h2>
+      <p>Si representas a una empresa o marca que cree en la transparencia y quiere apoyar el periodismo local, tenemos espacios para sponsors. Contáctanos para conocer nuestras políticas y formatos de patrocinio.</p>
+      <div class="contact-links">
+        <a href="mailto:correo123@123.cl?subject=Interés en Sponsorship" class="contact-link">
+          <span class="contact-label">Contacto para Sponsors</span>
+          correo123@123.cl
+        </a>
+      </div>
+    </section>
+
+  </div>
+</Layout>
+
+<style>
+/* Estilos base de la página y nuevos estilos para las secciones */
+  .actua-page { max-width: 800px; margin: 0 auto; }
+  .page-header { text-align: center; margin-bottom: calc(var(--grid-unit) * 6); }
+  .page-title { font-family: var(--font-heading-primary); font-size: 3.5rem; font-weight: 700; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.15em; line-height: 1.1; margin-bottom: calc(var(--grid-unit) * 4); }
+  .page-rule { height: 4px; background-color: var(--color-accent); border: none; width: 120px; margin: 0 auto; }
+  .page-description { font-size: 1.25rem; line-height: 1.6; color: var(--color-text-secondary); max-width: 600px; margin: 0 auto calc(var(--grid-unit) * 3); }
+
+  /* Estilos para las nuevas secciones */
+  .denuncia-form-section, .contacto-section, .donacion-section, .sponsor-section {
+    margin-bottom: calc(var(--grid-unit) * 10);
+    padding: calc(var(--grid-unit) * 4);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: calc(var(--grid-unit));
+  }
+  
+  section > h2 { font-family: var(--font-heading-secondary); font-size: 1.875rem; font-weight: 700; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: calc(var(--grid-unit) * 3); }
+  section > p { font-size: 1.125rem; line-height: 1.6; color: var(--color-text-primary); margin-bottom: calc(var(--grid-unit) * 3); }
+  section > ul { margin: calc(var(--grid-unit) * 2) 0; padding-left: calc(var(--grid-unit) * 3); }
+  section > ul li { margin-bottom: calc(var(--grid-unit) * 2); font-size: 1.125rem; line-height: 1.6; }
+
+  /* Estilos del formulario (inspirados en contact.astro) */
+  .denuncia-form { display: flex; flex-direction: column; gap: calc(var(--grid-unit) * 2); }
+  .form-group { display: flex; flex-direction: column; }
+  .form-group label { font-family: var(--font-heading-secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: calc(var(--grid-unit) / 2); }
+  .form-group input, .form-group textarea { background-color: var(--color-background); border: 2px solid var(--color-border); padding: calc(var(--grid-unit) * 1.5); font-family: var(--font-body); font-size: 1rem; color: var(--color-text-primary); border-radius: 4px; }
+  .form-group input[type="file"] { padding: calc(var(--grid-unit)); }
+
+  /* Botón de Enviar */
+  .btn-submit { font-family: var(--font-heading-secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: calc(var(--grid-unit) * 1.5) calc(var(--grid-unit) * 3); border-radius: 4px; transition: all 0.3s ease; text-decoration: none; display: inline-block; font-size: 0.95rem; background-color: var(--color-accent); color: white; border: 2px solid var(--color-accent); cursor: pointer; text-align: center; }
+  .btn-submit:hover { background-color: transparent; color: var(--color-accent); }
+
+  /* Estilos de contacto */
+  .contact-links { display: flex; flex-direction: column; gap: calc(var(--grid-unit) * 2); margin-top: calc(var(--grid-unit) * 2); }
+  .contact-link { display: flex; flex-direction: column; text-decoration: none; padding: calc(var(--grid-unit) * 2); border: 2px solid var(--color-border); transition: all 0.2s ease; border-radius: 4px;}
+  .contact-link:hover, .contact-link:focus { border-color: var(--color-accent); background-color: var(--color-surface); }
+  .contact-label { font-family: var(--font-heading-secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: calc(var(--grid-unit) / 2); }
+  .contact-link:hover .contact-label, .contact-link:focus .contact-label { color: var(--color-accent); }
+
+  /* Botón de Donar */
+  .btn-donar { display: inline-block; background-color: #ffd700; color: #111; font-family: var(--font-heading-secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: calc(var(--grid-unit) * 2) calc(var(--grid-unit) * 4); border-radius: 4px; text-decoration: none; transition: all 0.3s ease; margin-top: var(--grid-unit); }
+  .btn-donar:hover { background-color: #f0c400; transform: translateY(-2px); }
+
+  @media (max-width: 768px) {
+    .page-title { font-size: 2.5rem; }
+    .page-description { font-size: 1.125rem; }
+    section > h2 { font-size: 1.5rem; }
+    section > p, section > ul li { font-size: 1rem; }
+  }
+</style>

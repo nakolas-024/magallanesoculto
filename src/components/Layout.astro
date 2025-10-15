@@ -18,6 +18,7 @@ import Header from './Header.astro';
 import Sidebar from './Sidebar.astro';
 import Footer from './Footer.astro';
 import SEO from './SEO.astro';
+import Modal from './Modal.astro';
 
 export interface Props {
   title: string;
@@ -66,6 +67,37 @@ const { title, description, showSidebar = true, image, type, publishedTime, cano
       
       <Footer />
     </div>
+     <Modal
+    id="bienvenida"
+    href="https://sitio-del-anunciante.com"
+    src="https://via.placeholder.com/400x400.png?text=Anuncio+de+Bienvenida"
+    alt="Publicidad de bienvenida"
+  />
+  <script>
+  // Esta función se ejecuta cada vez que una página carga
+  function handleFirstVisitModal() {
+    // 1. Revisa si ya hemos marcado a este usuario como "visitante"
+    const hasVisited = localStorage.getItem('magallanesOcultoVisited');
+    
+    // 2. Busca el modal en la página
+    const modal = document.getElementById('modal-bienvenida'); // El ID debe coincidir con el del componente Modal
+
+    // 3. Si el usuario NUNCA ha visitado Y el modal existe...
+    if (!hasVisited && modal) {
+      // ...mostramos el modal
+      modal.classList.remove('hidden');
+      
+      // ...y lo marcamos como visitante para que no vuelva a aparecer
+      localStorage.setItem('magallanesOcultoVisited', 'true');
+    }
+  }
+
+  // Ejecutamos la función cuando la página carga por primera vez
+  document.addEventListener('DOMContentLoaded', handleFirstVisitModal);
+  
+  // También la ejecutamos si usas transiciones de página (View Transitions)
+  document.addEventListener('astro:page-load', handleFirstVisitModal);
+</script>
   </body>
 </html>
 

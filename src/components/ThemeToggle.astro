@@ -1,13 +1,7 @@
 ---
-// Theme toggle component - no props needed
+// src/components/ThemeToggle.astro
 ---
-
-<button
-  id="theme-toggle"
-  aria-label="Toggle dark mode"
-  title="Toggle dark mode"
-  class="theme-toggle"
->
+<button id="theme-toggle" class="theme-toggle" title="Cambiar tema" aria-label="Cambiar tema">
   <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
     <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -18,6 +12,8 @@
 </button>
 
 <script>
+  // Este script es el original de la plantilla, que es robusto.
+  // Se encarga de leer la preferencia del usuario y aplicar el tema correcto.
   const toggle = document.getElementById('theme-toggle');
   
   function setTheme(theme: string) {
@@ -49,8 +45,18 @@
     color: var(--color-accent);
   }
 
-  [data-theme="light"] .moon-icon,
+  /* --- LÓGICA CSS CORREGIDA Y SIMPLIFICADA --- */
+  /* Por defecto, la luna está oculta */
+  .moon-icon {
+    display: none;
+  }
+
+  /* Cuando el tema es oscuro, se oculta el sol y se muestra la luna */
   [data-theme="dark"] .sun-icon {
     display: none;
+  }
+
+  [data-theme="dark"] .moon-icon {
+    display: block;
   }
 </style>

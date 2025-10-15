@@ -1,0 +1,45 @@
+---
+// src/components/BannerPlaceholder.astro
+export interface Props {
+  height?: string; // ej: "90px", "250px"
+  class?: string;
+}
+const { height = '90px', class: className } = Astro.props;
+---
+<div class=`placeholder-banner ${className}` style={`height: ${height};`}>
+  <div class="text-container">
+    <span>PUBLICIDAD</span><span>PUBLICIDAD</span><span>PUBLICIDAD</span><span>PUBLICIDAD</span><span>PUBLICIDAD</span><span>PUBLICIDAD</span><span>PUBLICIDAD</span><span>PUBLICIDAD</span>
+  </div>
+</div>
+
+<style>
+  .placeholder-banner {
+    width: 100%;
+    background-color: var(--color-surface);
+    border: 2px dashed var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 2rem 0;
+  }
+  .text-container {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+    font-family: var(--font-heading-primary);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-border);
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .text-container span {
+    padding: 0 1rem;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+</style>
