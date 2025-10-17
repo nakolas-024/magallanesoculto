@@ -1,21 +1,15 @@
 ---
 import Layout from '../components/Layout.astro';
 import BannerPlaceholder from '../components/BannerPlaceholder.astro';
-import DenunciasCarousel from '../components/DenunciasCarousel.astro'; // 1. Importamos el carrusel
-import Modal from '../components/Modal.astro';                     // 2. Importamos el modal
+import DenunciasCarousel from '../components/DenunciasCarousel.astro';
+import Modal from '../components/Modal.astro';
 
-const mdPostsGlob = import.meta.glob('../content/blog/*.md', { eager: true });
-const mdxPostsGlob = import.meta.glob('../content/blog/*.mdx', { eager: true });
-
-const allPosts = [...Object.values(mdPostsGlob), ...Object.values(mdxPostsGlob)] as any[];
-const sortedPosts = allPosts
-  .sort((a: any, b: any) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
-  .slice(0, 3);
+// Ya no necesitamos cargar los posts en esta página
 ---
 
 <Layout 
-  title="Magallanes Oculto: Pueblo Chico, Infierno Grande" 
-  description="Periodismo independiente y denuncias ciudadanas para exponer la corrupción y las injusticias en Magallanes." 
+  title="Magallanes Oculto: Denuncias Ciudadanas" 
+  description="Plataforma de denuncias ciudadanas anónimas para exponer la corrupción y las injusticias en Magallanes." 
   showSidebar={false}
 >
   
@@ -29,124 +23,77 @@ const sortedPosts = allPosts
         <h1 class="hero-title">Magallanes Oculto</h1>
         <p class="hero-subtitle">"Pueblo Chico, Infierno Grande"</p>
         <p class="hero-description">
-          Periodismo de investigación sin censura, respaldado por la evidencia de los ciudadanos para exponer la verdad sobre el poder en Magallanes.
+          Una plataforma ciudadana para exponer la verdad con evidencia. Tu denuncia es anónima, los hechos son públicos.
         </p>
         <hr class="hero-rule" />
         <div class="hero-actions">
-          <a href={`${import.meta.env.BASE_URL}blog`} class="btn btn-primary">Últimas Investigaciones</a>
-          <a href={`${import.meta.env.BASE_URL}denuncia`} class="btn btn-secondary">Envía tu Denuncia</a>
+          <a href="#feed" class="btn btn-primary">Ver Últimas Denuncias</a>
+          <a href={`${import.meta.env.BASE_URL}actua`} class="btn btn-secondary">Envía tu Denuncia</a>
         </div>
       </div>
     </section>
 
-    {/* ... (resto de las secciones se mantienen igual) ... */}
-    <section class="demo-section" id="investigaciones">
-        <div class="container">
-          <h2 class="section-title">Investigaciones Destacadas</h2>
-          <p class="demo-description">
-            Los reportajes más recientes que exponen la realidad de la región, directo a los hechos y sin filtros.
-          </p>
-          
-          {sortedPosts.length > 0 && (
-            <div class="demo-posts">
-              {sortedPosts.map(post => (
-                <article class="demo-post-card">
-                  <h3 class="demo-post-title">
-                    <a href={`${import.meta.env.BASE_URL}blog/${post.file.split('/').pop()?.replace(/\.(md|mdx)$/, '')}`}>{post.frontmatter.title}</a>
-                  </h3>
-                  <div class="demo-post-meta">
-                    <time class="demo-post-date" datetime={post.frontmatter.date}>
-                      {new Date(post.frontmatter.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
-                    </time>
-                    <span class="demo-post-reading-time">5 min de lectura</span>
-                  </div>
-                  {post.frontmatter.excerpt && (<p class="demo-post-excerpt">{post.frontmatter.excerpt}</p>)}
-                </article>
-              ))}
-            </div>
-          )}
-          
-          <div class="demo-actions">
-            <a href={`${import.meta.env.BASE_URL}blog`} class="btn btn-primary">Ver Todas las Investigaciones</a>
-          </div>
-        </div>
-      </section>
-  
+    {/* SECCIÓN DE INVESTIGACIONES DESTACADAS ELIMINADA */}
+
+    <div class="container">
+      <BannerPlaceholder height="250px" />
+    </div>
+ 
+    <section class="features" id="secciones">
       <div class="container">
-        <BannerPlaceholder height="250px" />
+        <h2 class="section-title">Nuestras Secciones</h2>
+        <div class="features-grid">
+          {/* TARJETA DE SCARLETH INVESTIGA ELIMINADA */}
+          <div class="feature-card">
+            <h3 class="feature-title">Feed de Denuncias</h3>
+            <p class="feature-description">Un archivo público y en constante actualización con las denuncias y la evidencia enviada por la comunidad.</p>
+          </div>
+          <div class="feature-card">
+            <h3 class="feature-title">Actúa</h3>
+            <p class="feature-description">El espacio para participar. Envía tu denuncia de forma segura y anónima a través de nuestro formulario.</p>
+          </div>
+        </div>
       </div>
-  
-      <section class="features" id="secciones">
-        <div class="container">
-          <h2 class="section-title">Nuestras Secciones</h2>
-          <div class="features-grid">
-            <div class="feature-card">
-              <h3 class="feature-title">Scarleth Investiga</h3>
-              <p class="feature-description">Reportajes a fondo, análisis y columnas de opinión sobre los temas que marcan la pauta en la región.</p>
-            </div>
-            <div class="feature-card">
-              <h3 class="feature-title">Denuncia Ciudadana</h3>
-              <p class="feature-description">Un archivo público de denuncias con evidencia, donde la comunidad puede exponer irregularidades de forma segura.</p>
-            </div>
-            <div class="feature-card">
-              <h3 class="feature-title">Actúa</h3>
-              <p class="feature-description">El espacio para participar activamente. Envía tu denuncia, apoya nuestro trabajo con una donación o contáctanos para ser sponsor.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-  
-      <section class="typography-showcase">
-        <div class="container">
-          <h2 class="section-title">Manifiesto</h2>
-          <p class="typography-description">
-            Creemos en un periodismo sin miedo, fiscalizador e independiente del poder político y económico. Nuestra única lealtad es con los hechos y con los ciudadanos de Magallanes.
-          </p>
-          <div class="typography-samples">
-            <div class="type-sample">
-              <h1 class="sample-h1">VERDAD</h1>
-              <p class="type-meta">Compromiso con la evidencia</p>
-            </div>
-            <div class="type-sample">
-              <p class="sample-body">Creemos que una comunidad informada es una comunidad empoderada. La transparencia no es una opción, es una obligación.</p>
-              <p class="type-meta">Independencia • Rigurosidad</p>
-            </div>
-          </div>
-        </div>
-      </section>
-  
+    </section>
+ 
+    <section class="typography-showcase">
       <div class="container">
-        <BannerPlaceholder />
-      </div>
-  
-      <section class="installation" id="participa">
-        <div class="container">
-          <h2 class="section-title">Tu Participación es Clave</h2>
-          <div class="install-steps">
-            <div class="step">
-              <h3 class="step-number">01</h3>
-              <div class="step-content">
-                <h4 class="step-title">Envía tu Denuncia</h4>
-                <p>¿Tienes pruebas de un acto de corrupción o negligencia? Usa nuestro <a href={`${import.meta.env.BASE_URL}actua`}>formulario seguro</a>. Tu identidad estará protegida.</p>
-              </div>
-            </div>
-            <div class="step">
-              <h3 class="step-number">02</h3>
-              <div class="step-content">
-                <h4 class="step-title">Apoya Nuestro Trabajo</h4>
-                <p>Somos un medio independiente y nos financiamos gracias a los aportes de la comunidad. <a href={`${import.meta.env.BASE_URL}actua`}>Considera donar</a> para que podamos seguir investigando.</p>
-              </div>
-            </div>
-            <div class="step">
-              <h3 class="step-number">03</h3>
-              <div class="step-content">
-                <h4 class="step-title">Conviértete en Sponsor</h4>
-                <p>Si tu empresa cree en la transparencia, <a href={`${import.meta.env.BASE_URL}actua`}>contáctanos</a> para explorar formas de patrocinio que no comprometan nuestra independencia editorial.</p>
-              </div>
-            </div>
+        <h2 class="section-title">Manifiesto</h2>
+        <p class="typography-description">
+          Creemos en el poder de la evidencia ciudadana para fiscalizar al poder. Nuestra única lealtad es con los hechos y con la búsqueda de la verdad.
+        </p>
+        <div class="typography-samples">
+          <div class="type-sample">
+            <h1 class="sample-h1">EVIDENCIA</h1>
+            <p class="type-meta">Compromiso con las pruebas</p>
+          </div>
+          <div class="type-sample">
+            <p class="sample-body">Creemos que una comunidad informada es una comunidad empoderada. La transparencia no es una opción, es una obligación.</p>
+            <p class="type-meta">Anonimato • Fiscalización</p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+ 
+    <div class="container">
+      <BannerPlaceholder />
+    </div>
+ 
+    <section class="installation" id="participa">
+      <div class="container">
+        <h2 class="section-title">Tu Participación es Clave</h2>
+        <div class="install-steps">
+          <div class="step">
+            <h3 class="step-number">01</h3>
+            <div class="step-content">
+              <h4 class="step-title">Envía tu Denuncia</h4>
+              <p>¿Tienes pruebas de un acto de corrupción, abuso o negligencia? Usa nuestro <a href={`${import.meta.env.BASE_URL}actua`}>formulario seguro</a>. Tu identidad estará protegida en todo momento.</p>
+            </div>
+          </div>
+          {/* SECCIONES DE DONAR Y SPONSOR ELIMINADAS */}
+        </div>
+      </div>
+    </section>
   </div>
 
   <Modal
@@ -160,10 +107,9 @@ const sortedPosts = allPosts
     document.addEventListener('DOMContentLoaded', () => {
       const modal = document.getElementById('modal-publicidad-index');
       if (modal) {
-        // Con un pequeño retraso para no ser tan abrupto
         setTimeout(() => {
           modal.classList.remove('hidden');
-        }, 1500); // 1.5 segundos
+        }, 1500);
       }
     });
   </script>
@@ -205,23 +151,6 @@ const sortedPosts = allPosts
   .sample-body { font-family: var(--font-body); font-size: 1.125rem; line-height: 1.6; color: var(--color-text-primary); margin-bottom: calc(var(--grid-unit) * 2); max-width: 600px; margin-left: auto; margin-right: auto; }
   .sample-code { font-family: var(--font-mono); background-color: var(--color-surface); border: 1px solid var(--color-border); padding: calc(var(--grid-unit)) calc(var(--grid-unit) * 1.5); border-radius: 4px; display: inline-block; margin-bottom: calc(var(--grid-unit) * 2); color: var(--color-text-primary); }
   .type-meta { font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin: 0; }
-  .demo-section { padding: calc(var(--grid-unit) * 8) 0; }
-  .demo-description { text-align: center; font-size: 1.125rem; line-height: 1.6; color: var(--color-text-secondary); margin-bottom: calc(var(--grid-unit) * 6); max-width: 600px; margin-left: auto; margin-right: auto; }
-  .demo-posts { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: calc(var(--grid-unit) * 4); margin-bottom: calc(var(--grid-unit) * 6); }
-  .demo-post-card { background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: 8px; padding: calc(var(--grid-unit) * 3); transition: transform 0.2s ease, border-color 0.2s ease; display: flex; flex-direction: column; }
-  .demo-post-card:hover { transform: translateY(-2px); border-color: var(--color-accent); }
-  .demo-post-title { font-family: var(--font-heading-secondary); font-size: 1.5rem; font-weight: 700; margin-bottom: calc(var(--grid-unit)); }
-  .demo-post-title a { color: var(--color-text-primary); text-decoration: none; }
-  .demo-post-title a:hover, .demo-post-title a:focus { color: var(--color-accent); }
-  .demo-post-meta { display: flex; align-items: center; flex-wrap: wrap; gap: calc(var(--grid-unit)); margin-bottom: calc(var(--grid-unit) * 1.5); }
-  .demo-post-date { font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-  .demo-post-reading-time { font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-  .demo-post-reading-time::before { content: "•"; margin: 0 calc(var(--grid-unit) / 2); color: var(--color-border); }
-  .demo-post-excerpt { color: var(--color-text-secondary); line-height: 1.6; margin-bottom: calc(var(--grid-unit) * 2); margin-top: auto; }
-  .demo-post-categories { display: flex; flex-wrap: wrap; gap: calc(var(--grid-unit) / 2); }
-  .demo-category { background-color: var(--color-text-primary); color: white; padding: calc(var(--grid-unit) / 4) calc(var(--grid-unit) / 2); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 2px; }
-  :global([data-theme="dark"]) .demo-category { background-color: var(--color-surface); color: var(--color-text-primary); border: 1px solid var(--color-border); }
-  .demo-actions { text-align: center; }
   .installation { padding: calc(var(--grid-unit) * 8) 0; background-color: var(--color-surface); }
   .install-steps { display: grid; gap: calc(var(--grid-unit) * 4); }
   .step { display: grid; grid-template-columns: auto 1fr; gap: calc(var(--grid-unit) * 2); align-items: start; }
